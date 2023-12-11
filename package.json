@@ -1,0 +1,30 @@
+{
+  "name": "img-go",
+  "version": "1.1.0",
+  "description": "free image hosting, uploading",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anoopoo7/img-go.git"
+  },
+  "keywords": [
+    "images",
+    "image upload",
+    "image send",
+    "imggo",
+    "img",
+    "img-go"
+  ],
+  "author": "Anoop SS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anoopoo7/img-go/issues"
+  },
+  "homepage": "https://github.com/Anoopoo7/img-go#readme",
+  "dependencies": {
+    "uuid": "^9.0.1"
+  }
+}
