@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://i.ibb.co/hVGV2QN/img-result-cleanup.png" alt="projct Logo" width="200">
+  <img src="https://i.ibb.co/hVGV2QN/img-result-cleanup.png" alt="project Logo" width="200">
   <br>
   <br>
   ImgGo
