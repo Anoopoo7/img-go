@@ -52,16 +52,20 @@ async function upload(event, format) {
 async function uploads(event, format) {
   const imageFiles = event?.target?.files || [];
 
-  if (imageFiles.length <= 0) {
+  if (imageFiles?.length <= 0) {
     console.log("Images Not Found??");
     return null;
   }
 
-  const uploadPromises = imageFiles.map(async (imageFile) => {
-    return await handleUpload(imageFile, format);
-  });
+  const uploadResults = [];
 
-  return await Promise.all(uploadPromises);
+  for (let i = 0; i < imageFiles?.length; i++) {
+    const imageFile = imageFiles[i];
+    const result = await handleUpload(imageFile, format);
+    uploadResults.push(result);
+  }
+
+  return uploadResults;
 }
 
 module.exports = {
