@@ -1,27 +1,41 @@
-const { v4 } = require("uuid");
-
-const imageUpload = require("../../config.json");
+import { v4 } from 'uuid';
 
 async function handleUpload(imageFile, format) {
-  const { imgConfig } = imageUpload || {};
   try {
     const unique_id = v4();
 
-    var myHeaders = new Headers();
-    myHeaders.append("Cookie", imgConfig.cookie);
+    var myHeaders = new Headers({
+      accept: 'application/json',
+      'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,ml;q=0.6',
+      cookie:
+        '__gpi=UID=00000e5a12edbf3f:T=1719005434:RT=1719005735:S=ALNI_MaHoHVS2ZXOYRh1DJgU1KYzcwrA6g; PHPSESSID=v47t37gfu92vdave10iouchrt4; __gads=ID=8f5c998af401c5b5:T=1719005434:RT=1723280687:S=ALNI_MaEnsUx-YxcUMfJx22bN716sCYyBA; __eoi=ID=2d1e3844e0a2c0f2:T=1719005434:RT=1723280687:S=AA-AfjZihGykiS5P-zXDlFWVF0ef; FCNEC=%5B%5B%22AKsRol_RWhttYtEudA8QMxozany8_9R45D766PMzBGeYRMb5A_YUq7k-KtNATncnI68aZ1H83lLm-_xmDJCfk7MaoN5ZSNlTDO6515TQMW2KIuiohGQ-uAu-rhM1Tpu8Pi3GKV991YIEdMy4bDBb04LdrZm6-Kv5Fg%3D%3D%22%5D%5D; PHPSESSID=v47t37gfu92vdave10iouchrt4',
+      dnt: '1',
+      origin: 'https://imgbb.com',
+      priority: 'u=1, i',
+      referer: 'https://imgbb.com/',
+      'sec-ch-ua':
+        '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+      'sec-ch-ua-mobile': '?0',
+      'sec-ch-ua-platform': '"Linux"',
+      'sec-fetch-dest': 'empty',
+      'sec-fetch-mode': 'cors',
+      'sec-fetch-site': 'same-origin',
+      'user-agent':
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    });
 
     var formdata = new FormData();
-    formdata.append("source", imageFile, unique_id + (format || ".jpg"));
-    formdata.append("type", imgConfig.fileType);
-    formdata.append("action", imgConfig.action);
-    formdata.append("timestamp", new Date().getTime());
-    formdata.append("auth_token", imgConfig.authToken);
+    formdata.append('source', imageFile, unique_id + (format || '.jpg'));
+    formdata.append('type', 'file');
+    formdata.append('action', 'upload');
+    formdata.append('timestamp', new Date().getTime());
+    formdata.append('auth_token', '995df11134a3e488fa2a9524aee17a151ca41d74');
 
-    const response = await fetch("https://imgbb.com/json", {
-      method: "POST",
+    const response = await fetch('https://imgbb.com/json', {
+      method: 'POST',
       headers: myHeaders,
       body: formdata,
-      redirect: "follow",
+      redirect: 'follow'
     });
 
     const result = await response.json();
@@ -31,10 +45,10 @@ async function handleUpload(imageFile, format) {
       height: result?.image?.display_height,
       width: result?.image?.display_width,
       size: result?.image?.size_formatted,
-      delete: result?.image?.delete_url,
+      delete: result?.image?.delete_url
     };
   } catch (error) {
-    console.error("error", error);
+    console.error('error', error);
     return null;
   }
 }
@@ -43,7 +57,7 @@ async function upload(event, format) {
   const imageFile = event?.target?.files?.[0] || false;
 
   if (!imageFile) {
-    console.log("Image Not Found??");
+    console.log('Image Not Found??');
     return null;
   }
   return await handleUpload(imageFile, format);
@@ -53,7 +67,7 @@ async function uploads(event, format) {
   const imageFiles = event?.target?.files || [];
 
   if (imageFiles?.length <= 0) {
-    console.log("Images Not Found??");
+    console.log('Images Not Found??');
     return null;
   }
 
@@ -70,5 +84,5 @@ async function uploads(event, format) {
 
 module.exports = {
   upload,
-  uploads,
+  uploads
 };
